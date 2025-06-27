@@ -27,9 +27,7 @@ export default function RegisterScreen() {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
     } else {
       Alert.alert('Succès', `Compte créé pour ${name} (${email}) !`);
-      // Ici tu pourras ajouter l'enregistrement AsyncStorage ou API plus tard
-
-      // Réinitialiser les champs après inscription
+       
       setName('');
       setEmail('');
       setPassword('');
