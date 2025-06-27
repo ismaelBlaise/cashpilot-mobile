@@ -8,8 +8,16 @@ import {
   View
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  Home: undefined;
+  Register: undefined;
+};
 
 export default function HomeScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -22,6 +30,9 @@ export default function HomeScreen() {
     }
   };
 
+  const goToRegister = () => {
+    navigation.navigate('Register');
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CashPilot</Text>
@@ -50,7 +61,7 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goToRegister}>
         <Text style={styles.link}>Créer un compte</Text>
       </TouchableOpacity>
     </View>
