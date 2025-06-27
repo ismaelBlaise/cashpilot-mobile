@@ -1,5 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import {
   Alert,
@@ -9,28 +7,19 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { RootStackParamList } from '../_layout';
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Home'
->;
 
 export default function HomeScreen() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleLogin = () => {
     if (!email || !password) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
     } else {
       Alert.alert('Succès', `Bienvenue ${email} !`);
+       
     }
-  };
-
-  const goToRegister = () => {
-    navigation.navigate('Register');
   };
 
   return (
@@ -61,12 +50,13 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={goToRegister}>
+      <TouchableOpacity>
         <Text style={styles.link}>Créer un compte</Text>
       </TouchableOpacity>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

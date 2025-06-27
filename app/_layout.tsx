@@ -1,25 +1,24 @@
-// RootLayout.tsx (ou App.tsx)
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import 'react-native-reanimated';
 
-
-import HomeScreen from './screens/HomeScreen';
-import RegisterScreen from './screens/RegisterScreen';
-
-const Stack = createNativeStackNavigator();
-export type RootStackParamList = {
-  Home: undefined;
-  Register: undefined;
-};
-
+import { useColorScheme } from '@/hooks/useColorScheme';
+import HomeScreen from './(tabs)/HomeScreen';
+ 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  });
+
+  if (!loaded) {
+     
+    return null;
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <HomeScreen></HomeScreen>
+    </ThemeProvider>
   );
 }
